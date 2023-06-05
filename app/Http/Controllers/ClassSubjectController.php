@@ -124,4 +124,53 @@ class ClassSubjectController extends Controller
 
         return redirect('admin/assign_subject/list')->with('success', 'Asssign Subject Deleted Successfully !');
     }
+
+    public function edit_single($id)
+    {
+        $getRecord = Class_Subject::getSingle($id);
+        if(!empty($getRecord))
+        {
+            $data['getRecord'] = $getRecord;
+            $data['getClass'] = ClassModel::getClass();
+            $data['getSubject'] = Subject::getSubject();
+
+            $data['header_title'] = 'Edit Assign Subject';
+            return view('admin.assign_subject.edit_single', $data);
+
+        }
+        else
+        {
+            abort(404);
+        }
+
+    }
+
+
+    public function update_single($id, Request $request)
+    {
+            $getAlreadyFirst = Class_Subject :: getAlreadyFirst($request->class_id, $request->subject_id);
+            if(!empty($getAlreadyFirst))
+                {
+                    $getAlreadyFirst->status = $request->status;
+                    $getAlreadyFirst->save();
+
+                    return redirect('admin/assign_subject/list')->with('success', 'Status Updated Successfully!');
+                }
+                else
+                {
+                    $subjectclss =Class_Subject::getSingle($id);
+                    $subjectclss->class_id = $request->class_id;
+                    $subjectclss->subject_id = $request->subject_id;
+                    $subjectclss->status = $request->status;
+                                    $subjectclss->save();
+
+                    return redirect('admin/assign_subject/list')->with('success', 'Subject Assign Updated Successfully!');
+                }
+
+
+
+    }
+
+
+
 }

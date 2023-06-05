@@ -107,6 +107,8 @@
                                                 <a href="{{ url('admin/assign_subject/edit/' . $value->id) }}"
                                                     class="btn btn-success"><i
                                                         class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a href="{{ url('admin/assign_subject/edit_single/' . $value->id) }}"
+                                                    class="btn btn-secondary"><i class="fas fa-pencil-alt"></i></a>
                                                 <a href="{{ url('admin/assign_subject/delete/' . $value->id) }}"
                                                     class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                             </td>
